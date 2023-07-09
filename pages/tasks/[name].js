@@ -5,14 +5,22 @@ import axios from "axios";
 
 import styles from "../../styles/AllTask.module.css";
 
+
+const url=process.env.URL
+
+
+
 export const getServerSideProps = async ({ query }) => {
+
+  // console.log("url is")
+  // console.log(url)
   const { name } = query;
 
   console.log(name);
   let data = [];
 
   await axios
-    .get("http://localhost:3000/api/task/" + name)
+    .get(url+"/api/task/" + name)
     .then((result) => {
       data = result.data[0].tasks;
       console.log("data is :");
@@ -60,7 +68,10 @@ export default function (props) {
     ];
 
     // Making Axios post call to /api/task
+    console.log("url is")
 
+    console.log(process.env.URL)
+   
     axios
       .post("/api/task", {
         name: name,
